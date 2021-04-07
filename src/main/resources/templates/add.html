@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<div th:replace="fragments/head :: head"></div>
+
+<body class="sb-nav-fixed">
+
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<div id="layoutSidenav">
+		<div th:replace="fragments/sidebar :: sidebar"></div>
+
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid">
+					<div class="card mb-4">
+
+						<div id="layoutAuthentication">
+							<div id="layoutAuthentication_content">
+								<main>
+									<div class="container">
+										<div class="row justify-content-center">
+											<div class="col-lg-7">
+												<div class="card shadow-lg border-0 rounded-lg mt-5">
+													<div class="card-header">
+														<h4 class="text-center font-weight-light my-4">Cadastro
+															de novo servidor</h4>
+													</div>
+													<div class="card-body">
+														<form th:action="@{/add}" th:object="${servidor}"
+															method="post" class="form">
+															<div class="form-group">
+																<label class="small mb-1" for="nome">Nome
+																	Completo</label><input class="form-control py-3" id="nome"
+																	name="nome" type="text" th:field="*{nome}"
+																	placeholder="Insira com o nome do servidor" />
+																<div class="alert alert-warning"
+																	th:if="${#fields.hasErrors('nome')}"
+																	th:errors="*{nome}"></div>
+															</div>
+															<div class="form-row">
+																<div class="col-md-6">
+																	<div class="form-group">
+																		<label class="small mb-1" for="matricula">Matrícula</label><input
+																			class="form-control py-3" id="matricula"
+																			name="matricula" th:field="*{matricula}" type="text"
+																			placeholder="Insira o número de matrícula" />
+																		<div class="alert alert-warning"
+																			th:if="${#fields.hasErrors('matricula')}"
+																			th:errors="*{matricula}"></div>
+																	</div>
+																</div>
+																<div class="col-md-6">
+																	<div class="form-group">
+																		<label class="small mb-1" for="lotacao">Lotação</label><input
+																			class="form-control py-3" id="lotacao" name="lotacao"
+																			th:field="*{lotacao}" type="text"
+																			placeholder="Insira a lotação" />
+																		<div class="alert alert-warning"
+																			th:if="${#fields.hasErrors('lotacao')}"
+																			th:errors="*{lotacao}"></div>
+																	</div>
+																</div>
+																<div class="form-group">
+
+																		<label class="small mb-1" for="categoriaFuncional">Categoria
+																		Funcional</label> 
+																		
+																		<select class="form-control" name="categoriaFuncional" id="categoriaFuncional" th:field="*{categoriaFuncional}" >
+																		<option value="" >Selecione uma categoria</option>
+																		<option th:each="categoria : ${T(br.com.test.servidorapp.domains.enums.CategoriaFuncional).values()}" th:value="${categoria}" th:text="${categoria.nome}" ></option>
+																	</select>
+																	
+																	<div class="alert alert-warning"
+																		th:if="${#fields.hasErrors('categoriaFuncional')}"
+																		th:errors="*{categoriaFuncional}"></div>
+																</div>
+															</div>
+															<div class="form-group mt-4 mb-0">
+																<button class="btn btn-primary btn-block" type="submit">Salvar</button>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</main>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</main>
+			<div th:replace="fragments/footer :: footer"></div>
+		</div>
+	</div>
+</body>
+</html>

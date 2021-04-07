@@ -1,0 +1,17 @@
+server: 
+  port: 8090
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+  error:    whitelabel:      enabled: false
+    path: /error
+
+---
+spring:
+  application:
+    name: servidor2-app
+  mvc:
+    locale: pt
+  profiles:
+    active: dev

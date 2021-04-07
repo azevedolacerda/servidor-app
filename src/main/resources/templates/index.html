@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<div th:replace="fragments/head :: head"></div>
+<script>
+	
+	var editor;
+	$(document).ready(function() {
+	
+		$('#servidores').on('click', 'td.editor-delete', function (e) {
+	        e.preventDefault();
+	 
+	        editor.remove( $(this).closest('tr'), {
+	            title: 'Confirmar exclusão',
+	            message: 'Are you sure you wish to remove this record?',
+	            buttons: 'Sim'
+	        } );
+	    } );
+	    
+	    $('#servidores').DataTable({
+	    	"order": [ 1, "asc" ],
+	  		"language": {
+	            "lengthMenu": "Mostrar _MENU_ itens por página",
+	            "zeroRecords": "Nenhum registro foi encontrado",
+	            "info": "Exibindo a página _PAGE_ de _PAGES_",
+	            "infoEmpty": "Nenhum registro exibido",
+	            "infoFiltered": "(filtered from _MAX_ total records)",
+	            "loadingRecords": "Carregando...",
+	   			"processing":     "Processando...",
+	   			"search":         "Buscar pelo nome ou matrícula:",
+	   			"paginate": {
+	       			"first":      "Primeiro",
+		        	"last":       "Último",
+		        	"next":       "Próximo",
+		        	"previous":   "Anterior"
+	    		},
+	        },
+	        "processing": true,
+	        "serverSide": true,
+	        "ajax": {
+	            "url": "/servidor/list",
+	            "type": "POST",
+	            "dataType": "json",
+	            "contentType": "application/json",
+	            "data": function (d) {
+	                return JSON.stringify(d);
+	            }
+	        },
+	        
+	        "columns": [
+	           	{
+            		data: "matricula",
+            		orderable: false,
+            		render:function (data, type, row) {
+                    	return `<input type="checkbox" value="` + data + `" name="matriculas">`;
+        			}
+  
+        		},
+	            {"data": "nome", "width": "20%"},
+	            {"data": "matricula","width": "20%"},
+	            {"data": "categoriaFuncional", "width": "20%"},
+	            {"data": "lotacao", "width": "20%"},
+				{
+            		data: "matricula",
+            		orderable: false,
+            		render:function (data, type, row) {
+                    	return `<a href="/edit/` + data + `"><i class="far far fa-edit"> </i></a>`;
+        			}
+  
+        		},
+				{
+            		data: "matricula",
+            		orderable: false,
+            		render:function (data, type, row) {
+                    	return `<a href="/delete/` + data + `"><i class="far fa-trash-alt delete-icon"> </i></a>`;
+        			}
+  
+        		},
+	        ],
+
+	    });
+    });
+</script>
+<body class="sb-nav-fixed">
+
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<div id="layoutSidenav">
+		<div th:replace="fragments/sidebar :: sidebar"></div>
+
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid">
+					<div class="card mb-4">
+						<div class="card-header">
+							<i class="fas fa-table mr-1"></i>Servidores Cadastrados
+						</div>
+						<div class="card-body">
+
+							<div th:if="${message}" th:text="${message}"
+								th:class="${'alert ' + alertClass}" />
+
+							<form th:action="@{/severalDelete}" method="post">
+								<div class="container">
+									<div class="row">
+										<div class="col-lg-10 mt-5 mb-5">
+											<table id="servidores"
+												class="table table-bordered table-responsive"
+												style="width: 100%">
+												<thead>
+													<tr>
+														<th></th>
+														<th>Nome</th>
+														<th>Matrícula</th>
+														<th>Categoria funcional</th>
+														<th>Lotação</th>
+														<th></th>
+														<th></th>
+													</tr>
+												</thead>
+											</table>
+											<p></p>
+											<p>
+												<a class="btn btn-primary" href="/add" role="button">Novo
+													Servidor</a>
+												<button type="submit" class="btn btn-danger">Excluir
+													selecionados</button>
+											</p>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+				</div>
+			</main>
+			<div th:replace="fragments/footer :: footer"></div>
+		</div>
+	</div>
+</body>
+</html>

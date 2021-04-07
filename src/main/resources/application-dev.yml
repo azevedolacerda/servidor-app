@@ -1,0 +1,12 @@
+
+spring:
+  profiles: dev
+  datasource:
+    url: SERVIDOR_APP_URL_DB
+    username: SERVIDOR_APP_USERNAME_DB
+    password: SERVIDOR_APP_PASSWORD_DB
+    initialization-mode: always
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

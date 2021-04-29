@@ -18,7 +18,7 @@ public class ServidorRestController {
 	@Autowired
 	private ServidorService servidorService;
 
-	
+	//teste
     @PostMapping("/list")
     public Page<Servidor> list(@RequestBody PagingRequest pagingRequest) {
         return servidorService.getServidores(pagingRequest);

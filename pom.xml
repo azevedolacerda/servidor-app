@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>br.com.test</groupId>
 	<artifactId>servidor-app</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>servidor-app</name>
 	<description>Gestão simples de funcionários</description>
 	<properties>
